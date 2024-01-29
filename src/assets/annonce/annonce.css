@@ -1,0 +1,22 @@
+
+.user-pub{
+    background-color: white;
+    float: left;
+}
+.users{
+    color: black;
+}
+.like{
+    float: right;
+}
+.sary-pub{
+    margin-top:5vw;
+}
+
+.prixChip{
+    background-color: rgb(69, 34, 171);
+}
+
+.etatChip {
+    background-color: green;
+}
