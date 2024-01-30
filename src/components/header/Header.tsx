@@ -1,8 +1,9 @@
 import {IonPage,IonAvatar,IonLabel,IonChip,IonAlert, IonContent, IonHeader, IonTitle, IonItem } from "@ionic/react";
-import logo from "../../images/logo.png";
+
 import bm from "../../images/bm.jpg";
 import { useHistory } from "react-router";
 import '../../assets/header/header.css';
+import logo from "../../images/B.png"
 const Header :React.FC = () => {
     const history = useHistory();
     return (
@@ -29,7 +30,7 @@ const Header :React.FC = () => {
                     role: 'ok',
                     handler: () => {
                         console.log('Confirm Ok');
-                        history.push('/addAnnonce');
+                        history.push('/login');
                     }
                     }
             ]}>

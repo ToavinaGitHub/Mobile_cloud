@@ -5,7 +5,7 @@ import { IonCard, IonCardHeader,IonCardTitle,IonCardContent, IonInput, IonButton
 import '../theme/variables.css';
 import '../assets/Auth/login.css'
 import { useHistory } from "react-router";
-import bm from "../images/bm.jpg"
+import logo from "../images/B.png"
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,7 +26,7 @@ const Login: React.FC = () => {
     <IonPage>
       <IonContent>
       <IonCard>
-              <img alt="bmw" src={bm} id="login-logo"></img>
+              <img alt="logo" src={logo} id="login-logo"></img>
               <IonCardHeader className='header'>
                   <IonCardTitle  class="card-title">Connectez-vous</IonCardTitle>
               </IonCardHeader>
