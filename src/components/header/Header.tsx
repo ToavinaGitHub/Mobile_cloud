@@ -4,8 +4,41 @@ import bm from "../../images/bm.jpg";
 import { useHistory } from "react-router";
 import '../../assets/header/header.css';
 import logo from "../../images/B.png"
+
+import { useState,useEffect} from "react";
+
+import config from "../../Config";
+
 const Header :React.FC = () => {
     const history = useHistory();
+    const [token,setToken] = useState(localStorage.getItem("token"));
+    const [id,setId] = useState(localStorage.getItem("id"));
+
+    const [data,setData] = useState({})
+    useEffect(() => {
+        // Call your API here and set loading accordingly
+        const fetchData = async () => {
+          try {
+            const response = await fetch(config.baseUrl+'/api/v1/demo/utilisateur?id='+id,
+             {
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                },
+              }
+            );
+          
+            response.json().then((dat)=>{
+                setData(dat);
+
+            })
+            console.log(response)
+          } catch (error) {
+            console.error('Error fetching profile data:', error);
+          } 
+        };
+    
+        fetchData();
+    }, [id]);
     return (
         <IonHeader id="head">
             <img alt="Logo" src={logo} id="img-logo"></img>
@@ -13,7 +46,7 @@ const Header :React.FC = () => {
                 <IonAvatar>
                     <img alt="bmw" src={bm}></img>
                 </IonAvatar>
-                <IonLabel>Toavina Razakarivony</IonLabel>
+                <IonLabel>{data.prenomUtilisateur} {data.nomUtilisateur}</IonLabel>
             </IonChip>
             <IonAlert trigger='profile-head' header='Se deconnecter' message="Voulez vous vraiment vous deconnecter?" 
                 buttons={[
@@ -30,6 +63,7 @@ const Header :React.FC = () => {
                     role: 'ok',
                     handler: () => {
                         console.log('Confirm Ok');
+                        sessionStorage.removeItem("error");
                         history.push('/login');
                     }
                     }

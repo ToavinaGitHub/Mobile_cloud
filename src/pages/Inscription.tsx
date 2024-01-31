@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 import { IonCard,IonContent,IonPage,IonCardContent, IonInput, IonButton, IonTitle, IonRouterLink, IonSelect, IonSelectOption, IonToggle, IonCol, IonRow, IonCardHeader, IonCardTitle } from '@ionic/react';
 
+import { useHistory } from 'react-router';
 import '../assets/Auth/inscription.css'
+
+import config from '../Config';
 
 const Inscription: React.FC = () => {
     const [nom, setNom] = useState('');
@@ -15,9 +18,10 @@ const Inscription: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
 
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // Ajoutez votre logique d'inscription ici avec les valeurs des champs
         console.log('Nom:', nom);
@@ -29,6 +33,38 @@ const Inscription: React.FC = () => {
         console.log('Email:', email);
         console.log('Password:', password);
 
+        
+    try {
+        setLoading(true);
+        // Make a POST request to your authentication API endpoint
+        const response = await fetch(config.baseUrl+'/api/v1/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            nomUtilisateur:nom, 
+            prenomUtilisateur:prenom ,
+            dateNaissance:dateNaissance,
+            sexe:sexe,
+            email:email,
+            password:password,
+            adresse:adresse,
+            tel:telephone,
+            isAdmin:0
+          }),
+        });
+  
+        if (response.ok) {
+          history.push('/Login');
+        } else {
+          history.push('/Inscription');
+        }
+      } catch (error) {
+        console.error('Error during Inscription:', error);
+      }finally{
+        setLoading(false);
+      }
     };
 
     return (
@@ -68,8 +104,8 @@ const Inscription: React.FC = () => {
                         onIonChange={(e) => setSexe(e.detail.value)}
 
                     >
-                        <IonSelectOption value="homme">Homme</IonSelectOption>
-                        <IonSelectOption value="femme">Femme</IonSelectOption>
+                        <IonSelectOption value="1">Homme</IonSelectOption>
+                        <IonSelectOption value="0">Femme</IonSelectOption>
                     </IonSelect>
                     <IonInput
                         type="tel"
@@ -110,7 +146,9 @@ const Inscription: React.FC = () => {
                             />
                         </IonCol>
                     </IonRow>
-                    <IonButton  type='submit' expand='block' fill='solid' color='primary'>S'inscrire</IonButton>
+                    <IonButton  type='submit' expand='block' fill='solid' color='primary'>
+                         {loading ? "En cours d'inscription..." : "S'inscrire"}
+                    </IonButton>
                 </form>
                 <div className="ion-text-center" style={{ marginTop: '1rem' }}>
                     <IonRouterLink routerLink="/login">Déjà un compte? Connectez-vous</IonRouterLink>

@@ -28,7 +28,6 @@ const AddAnnonce : React.FC = () =>{
             <IonRow>
                 <IonCol>
                     <IonItem className="custom-item">
-                        
                         <IonInput
                         className="prix"
                         label="Kilometrage"
