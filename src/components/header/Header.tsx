@@ -9,12 +9,14 @@ import { useState,useEffect} from "react";
 
 import config from "../../Config";
 
+
+import UserData from "../../interface/UserData";
 const Header :React.FC = () => {
     const history = useHistory();
     const [token,setToken] = useState(localStorage.getItem("token"));
     const [id,setId] = useState(localStorage.getItem("id"));
 
-    const [data,setData] = useState({})
+    const [data, setData] = useState<UserData>({}); 
     useEffect(() => {
         // Call your API here and set loading accordingly
         const fetchData = async () => {

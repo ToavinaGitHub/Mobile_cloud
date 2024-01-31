@@ -96,12 +96,12 @@ const AddAnnonce : React.FC = () =>{
                 </IonCol>
             </IonRow>
             <IonItem>
-                <IonInput
+                <input
                         type="file"
                         className="prix"
                         multiple
                         >
-                    </IonInput>
+                    </input>
                 </IonItem>
                 <IonButton expand='block' fill='solid' color='primary'>Creer annonce</IonButton>
             </IonContent>

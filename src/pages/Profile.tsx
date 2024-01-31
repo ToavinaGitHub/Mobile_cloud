@@ -24,13 +24,15 @@ import Header from '../components/header/Header';
 
 import config from '../Config';
 import { useEffect } from 'react';
+
+import UserData from '../interface/UserData';
 const Profile: React.FC = () => {
     const history = useHistory();
 
     const [token,setToken] = useState(localStorage.getItem("token"));
     const [id,setId] = useState(localStorage.getItem("id"));
 
-    const [data,setData] = useState({})
+    const [data, setData] = useState<UserData>({}); 
     useEffect(() => {
         // Call your API here and set loading accordingly
         const fetchData = async () => {
@@ -71,8 +73,8 @@ const Profile: React.FC = () => {
             <img src="https://via.placeholder.com/150" alt="Profile" />
           </IonAvatar>
           <IonLabel>
-            <h2>{data.nomUtilisateur}</h2>
-            <p>{data.email}</p>
+            <h2>{data?.nomUtilisateur}</h2>
+            <p>{data?.email}</p>
           </IonLabel>
         </IonItem>
 
@@ -89,7 +91,7 @@ const Profile: React.FC = () => {
                     <IonItem>
                         <IonLabel>
                         <h3>Nom:</h3>
-                        <p>{data.nomUtilisateur}</p>
+                        <p>{data?.nomUtilisateur}</p>
                         </IonLabel>
                     </IonItem>
                 </IonCol>
@@ -97,7 +99,7 @@ const Profile: React.FC = () => {
                     <IonItem>
                         <IonLabel>
                         <h3>Prenoms:</h3>
-                        <p>{data.prenomUtilisateur}</p>
+                        <p>{data?.prenomUtilisateur}</p>
                         </IonLabel>
                     </IonItem>
                 </IonCol>
@@ -105,19 +107,19 @@ const Profile: React.FC = () => {
           <IonItem>
             <IonLabel>
               <h3>Date de Naissance:</h3>
-              <p>{data.dateNaissance}</p>
+              <p>{data?.dateNaissance}</p>
             </IonLabel>
           </IonItem>
           <IonItem>
             <IonLabel>
               <h3>Adresse:</h3>
-              <p>{data.adresse}</p>
+              <p>{data?.adresse}</p>
             </IonLabel>
           </IonItem>
           <IonItem>
             <IonLabel>
               <h3>Telephone:</h3>
-              <p>{data.tel}</p>
+              <p>{data?.tel}</p>
             </IonLabel>
           </IonItem>
         </IonList>
