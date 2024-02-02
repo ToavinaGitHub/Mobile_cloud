@@ -77,7 +77,7 @@ const AddAnnonce : React.FC = () =>{
             </IonRow>
             <IonRow>
                 <IonCol>
-                    <IonItem>
+                    <IonItem>ç
                         <IonSelect label="Transmission" labelPlacement="floating" fill="solid">
                             <IonSelectOption>Manuelle</IonSelectOption>
                             <IonSelectOption>Automatique</IonSelectOption>

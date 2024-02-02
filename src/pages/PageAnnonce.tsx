@@ -4,15 +4,43 @@ import { IonButton, IonCard, IonContent, IonHeader, IonInput, IonPage, IonTitle,
 import { search,chatbubbleOutline,chatboxOutline,add,imageOutline} from "ionicons/icons";
 import { Route, useHistory } from "react-router";
 
+import { useEffect, useState } from "react";
+
 import Annonce from "../components/Annonce/Annonce";
 
+import config from "../Config";
+
 const PageAnnonce : React.FC =()=>{
+
+    const [data,setData] = useState([]);
+
     const history = useHistory();
     function pullRefresh(event: CustomEvent<RefresherEventDetail>){
         setTimeout(() => {
             event.detail.complete();
         },2000);
-    }   
+    }  
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const reponse = await fetch(config.baseUrl+"/annoncesUser?idClient="+localStorage.getItem("id"),
+            {
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                },
+            }  
+            );
+            const donnees = await reponse.json();
+            setData(donnees);
+            console.log(donnees);
+          } catch (erreur) {
+            console.error('Erreur lors de la récupération des données :', erreur);
+          }
+        };
+    
+        fetchData();
+      }, []);
     return(
         <>
             <IonPage>
@@ -33,11 +61,12 @@ const PageAnnonce : React.FC =()=>{
                         </IonFabButton>
                     </IonFabList>
                 </IonFab>
-                <Annonce />
-                <Annonce />
-                <Annonce />
-                <Annonce />
-                <Annonce />
+                {data.map((annonce:any, index) => (
+                <Annonce
+                  key={index}
+                  {...annonce}
+                />
+              ))}
             </IonContent>
             </IonPage>
         </>

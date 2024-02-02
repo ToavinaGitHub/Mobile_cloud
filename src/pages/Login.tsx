@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -17,17 +17,19 @@ import config from '../Config';
 import '../assets/Auth/login.css';
 
 const Login: React.FC = () => {
+ // const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const passwordRef = useRef<any>(null)
 
   const history = useHistory();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       setLoading(true);
+      console.log(username+" "+passwordRef.current.value);
       // Make a POST request to your authentication API endpoint
       const response = await fetch(config.baseUrl+'/api/v1/auth/authenticateClient', {
         method: 'POST',
@@ -36,18 +38,20 @@ const Login: React.FC = () => {
         },
         body: JSON.stringify({ 
           email:username, 
-          password:password ,
+          password:passwordRef.current.value ,
         }),
       });
 
+      console.log(response);
       if (response.ok) {
         sessionStorage.removeItem("error");
-        response.json().then((data)=>{
+        await response.json().then((data)=>{
           localStorage.setItem("token",data.token);
           localStorage.setItem("id",data.id);
           history.push('/mesAnnonces');
         })
       } else {
+
         sessionStorage.setItem("error","Mot de passe ou email invalide");
         history.push('/Login');
       }
@@ -83,14 +87,15 @@ const Login: React.FC = () => {
                 labelPlacement='floating'
                 fill='solid'
                 placeholder='Password'
-                value={password}
-                onIonChange={(e) => setPassword(e.detail.value!)}
+                ref={passwordRef}
+                // value={password}
+                // onIonChange={(e) => setPassword(e.detail.value!)}
               ></IonInput>
               <IonButton type='submit' expand='block' fill='solid' color='primary'>
               {loading ? "En cours..." : "Se connecter"}
               </IonButton>
             </form>
-            <p id="error">{sessionStorage.getItem("error")}</p>
+            <p id="error">{sessionStorage.getItem("error") ? "Email ou password invalide" :"..."}</p>
           </IonCardContent>
           <IonButton href='/inscription' fill='clear'>
             Pas encore de compte?
@@ -101,5 +106,4 @@ const Login: React.FC = () => {
     </>
   );
 };
-
 export default Login;
