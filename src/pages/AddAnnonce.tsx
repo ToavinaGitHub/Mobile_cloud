@@ -36,7 +36,7 @@ const AddAnnonce : React.FC = () =>{
             try {
               const response = await fetch(config.baseUrl + '/marques',  {
                   headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
                   },
               }  
               );
@@ -50,7 +50,7 @@ const AddAnnonce : React.FC = () =>{
           try {
             const response = await fetch(config.baseUrl + '/modeles',  {
                 headers: {
-                  'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                  'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
                 },
             }  
             );
@@ -64,7 +64,7 @@ const AddAnnonce : React.FC = () =>{
             try {
               const response = await fetch(config.baseUrl + '/transmissions',  {
                   headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
                   },
               }  
               );
@@ -78,7 +78,7 @@ const AddAnnonce : React.FC = () =>{
             try {
               const response = await fetch(config.baseUrl + '/carburants',  {
                   headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
                   },
               }  
               );
@@ -106,7 +106,7 @@ const AddAnnonce : React.FC = () =>{
             config.baseUrl + `/modeles/${selectedMarqueValue}`,
             {
               headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
               },
             }
           );
@@ -128,7 +128,7 @@ const AddAnnonce : React.FC = () =>{
         try {
           const response = await fetch(config.baseUrl + `/moteurModeles?idModele=${selectedModelValue}`,{
             headers: {
-              'Authorization': `Bearer ${localStorage.getItem("token")}`,
+              'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
             },
         }  );
 
@@ -141,7 +141,7 @@ const AddAnnonce : React.FC = () =>{
         try {
             const responseYears = await fetch(config.baseUrl + `/anneeModeles?idModele=${selectedModelValue}`,{
                 headers: {
-                  'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                  'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
                 },
             });
             const yearsData = await responseYears.json();
@@ -174,7 +174,7 @@ const AddAnnonce : React.FC = () =>{
                 idCommission: 1
             },
             utilisateur: {
-                idUtilisateur: parseInt(localStorage.getItem('id')!)
+                idUtilisateur: parseInt(sessionStorage.getItem('id')!)
             },
             transmission: {
                 idTransmission: parseInt(selectedTransmission)
@@ -209,7 +209,7 @@ const AddAnnonce : React.FC = () =>{
             method: 'POST',
             headers: {
             
-            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
             },
             body: formData,
           });

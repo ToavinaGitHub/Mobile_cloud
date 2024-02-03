@@ -64,7 +64,7 @@ const Annonce: React.FC = (props: any) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`,
+        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
       }
     });
 
@@ -123,7 +123,7 @@ const Annonce: React.FC = (props: any) => {
         <IonChip>{props.moteurModele.moteur.nomMoteur}</IonChip>
         <IonChip>{props.carburant.nomCarburant}</IonChip>
         <IonChip>{props.transmission.nomTransmission}</IonChip>
-        <IonChip>{props.kilometrage}</IonChip>
+        <IonChip>{props.kilometrage} km</IonChip>
         <IonChip>{props.anneeModele.annee}</IonChip>
         <IonChip>{props.nbPorte} portes</IonChip>
         <IonChip className="prixChip">{props.prixDemande} MGA</IonChip>

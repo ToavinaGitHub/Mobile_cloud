@@ -46,8 +46,8 @@ const Login: React.FC = () => {
       if (response.ok) {
         sessionStorage.removeItem("error");
         await response.json().then((data)=>{
-          localStorage.setItem("token",data.token);
-          localStorage.setItem("id",data.id);
+          sessionStorage.setItem("token",data.token);
+          sessionStorage.setItem("id",data.id);
           history.push('/mesAnnonces');
         })
       } else {

@@ -1,5 +1,5 @@
 import Header from "../components/header/Header";
-import { IonButton, IonCard, IonContent, IonHeader, IonInput, IonPage, IonTitle,IonIcon, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle, IonList, IonItem, IonThumbnail, IonLabel, IonAlert, IonChip, IonAvatar, IonFab, IonFabButton, IonFabList, IonBadge, RefresherEventDetail, IonRefresher, IonRefresherContent, IonSearchbar, IonRouterOutlet } from "@ionic/react";
+import { IonButton, IonCard, IonContent, IonHeader, IonInput, IonPage,IonSpinner, IonTitle,IonIcon, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle, IonList, IonItem, IonThumbnail, IonLabel, IonAlert, IonChip, IonAvatar, IonFab, IonFabButton, IonFabList, IonBadge, RefresherEventDetail, IonRefresher, IonRefresherContent, IonSearchbar, IonRouterOutlet } from "@ionic/react";
 
 import { search,chatbubbleOutline,chatboxOutline,add,imageOutline} from "ionicons/icons";
 import { Route, useHistory } from "react-router";
@@ -13,6 +13,7 @@ import config from "../Config";
 const PageAnnonce : React.FC =()=>{
 
     const [data,setData] = useState([]);
+    const [loading, setLoading] = useState(true); // Added loading state
 
     const history = useHistory();
     const fetchData = async () => {
@@ -23,7 +24,9 @@ const PageAnnonce : React.FC =()=>{
                 },
             });
             const donnees = await reponse.json();
+
             setData(donnees);
+            setLoading(false); 
             console.log(donnees);
         } catch (erreur) {
             console.error('Erreur lors de la récupération des données :', erreur);
@@ -60,12 +63,16 @@ const PageAnnonce : React.FC =()=>{
                         </IonFabButton>
                     </IonFabList>
                 </IonFab>
-                {data.map((annonce:any, index) => (
-                <Annonce
-                  key={index}
-                  {...annonce}
-                />
-              ))}
+                {loading ? ( // Render spinner if loading is true
+                        <IonSpinner />
+                    ) : (
+                        data.map((annonce: any, index) => (
+                            <Annonce
+                                key={index}
+                                {...annonce}
+                            />
+                        ))
+                    )}
             </IonContent>
             </IonPage>
         </>
