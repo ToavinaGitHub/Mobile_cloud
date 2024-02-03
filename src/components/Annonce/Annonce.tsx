@@ -149,10 +149,13 @@ const Annonce: React.FC = (props: any) => {
             : ''}
         </IonChip>
 
-        <IonButton id={`modifEtatBtn`} onClick={openAlert}>
-          Modifier etat
-        </IonButton>
+          
 
+        {props.etat !== 0 && (
+          <IonButton id={`modifEtatBtn`} onClick={openAlert}>
+            Modifier etat
+          </IonButton>
+        )}
         <IonModal
           isOpen={isAlertOpen}
           onDidDismiss={closeAlert}

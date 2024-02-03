@@ -15,32 +15,31 @@ const PageAnnonce : React.FC =()=>{
     const [data,setData] = useState([]);
 
     const history = useHistory();
-    function pullRefresh(event: CustomEvent<RefresherEventDetail>){
-        setTimeout(() => {
-            event.detail.complete();
-        },2000);
-    }  
-    
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const reponse = await fetch(config.baseUrl+"/annoncesUser?idClient="+localStorage.getItem("id"),
-            {
+    const fetchData = async () => {
+        try {
+            const reponse = await fetch(config.baseUrl + "/annoncesUser?idClient=" + localStorage.getItem("id"), {
                 headers: {
-                  'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
                 },
-            }  
-            );
+            });
             const donnees = await reponse.json();
             setData(donnees);
             console.log(donnees);
-          } catch (erreur) {
+        } catch (erreur) {
             console.error('Erreur lors de la récupération des données :', erreur);
-          }
-        };
-    
+        }
+    };
+
+    const pullRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
+        setTimeout(async () => {
+            await fetchData();  // Refetch data
+            event.detail.complete();
+        }, 2000);
+    };
+
+    useEffect(() => {
         fetchData();
-      }, []);
+    }, []);
     return(
         <>
             <IonPage>
