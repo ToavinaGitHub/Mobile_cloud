@@ -64,12 +64,11 @@ const Annonce: React.FC = (props: any) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+        'Authorization': `Bearer ${localStorage.getItem("token")}`,
       }
     });
 
-
-    modalRef.current?.dismiss(selectedEtat, 'confirm');
+     modalRef.current?.dismiss(selectedEtat, 'confirm');
     window.location.reload();
   }
 
