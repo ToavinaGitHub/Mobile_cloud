@@ -13,8 +13,8 @@ import config from "../../Config";
 import UserData from "../../interface/UserData";
 const Header :React.FC = () => {
     const history = useHistory();
-    const [token,setToken] = useState(sessionStorage.getItem("token"));
-    const [id,setId] = useState(sessionStorage.getItem("id"));
+    const [token,setToken] = useState(localStorage.getItem("token"));
+    const [id,setId] = useState(localStorage.getItem("id"));
 
     const [data, setData] = useState<UserData>({}); 
     useEffect(() => {
@@ -65,7 +65,7 @@ const Header :React.FC = () => {
                     role: 'ok',
                     handler: () => {
                         console.log('Confirm Ok');
-                        sessionStorage.removeItem("error");
+                        localStorage.removeItem("error");
                         history.push('/login');
                     }
                     }

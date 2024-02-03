@@ -44,15 +44,15 @@ const Login: React.FC = () => {
 
       console.log(response);
       if (response.ok) {
-        sessionStorage.removeItem("error");
+        localStorage.removeItem("error");
         await response.json().then((data)=>{
-          sessionStorage.setItem("token",data.token);
-          sessionStorage.setItem("id",data.id);
+          localStorage.setItem("token",data.token);
+          localStorage.setItem("id",data.id);
           history.push('/mesAnnonces');
         })
       } else {
 
-        sessionStorage.setItem("error","Mot de passe ou email invalide");
+        localStorage.setItem("error","Mot de passe ou email invalide");
         history.push('/Login');
       }
     } catch (error) {
@@ -95,7 +95,7 @@ const Login: React.FC = () => {
               {loading ? "En cours..." : "Se connecter"}
               </IonButton>
             </form>
-            <p id="error">{sessionStorage.getItem("error") ? "Email ou password invalide" :"..."}</p>
+            <p id="error">{localStorage.getItem("error") ? "Email ou password invalide" :"..."}</p>
           </IonCardContent>
           <IonButton href='/inscription' fill='clear'>
             Pas encore de compte?

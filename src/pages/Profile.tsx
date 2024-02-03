@@ -29,8 +29,8 @@ import UserData from '../interface/UserData';
 const Profile: React.FC = () => {
     const history = useHistory();
 
-    const [token,setToken] = useState(sessionStorage.getItem("token"));
-    const [id,setId] = useState(sessionStorage.getItem("id"));
+    const [token,setToken] = useState(localStorage.getItem("token"));
+    const [id,setId] = useState(localStorage.getItem("id"));
 
     const [data, setData] = useState<UserData>({}); 
     useEffect(() => {
@@ -139,7 +139,9 @@ const Profile: React.FC = () => {
                     role: 'ok',
                     handler: () => {
                         console.log('Confirm Ok');
-                        sessionStorage.removeItem("error");
+                        localStorage.removeItem("id");
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("error");
                         history.push('/login');
                     }
                     }
