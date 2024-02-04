@@ -10,7 +10,7 @@ import {
   IonPage,
 } from '@ionic/react';
 import { useHistory } from 'react-router';
-import logo from '../images/B.png';
+import logo from '../images/Bonokany.png';
 
 import config from '../Config';
 
