@@ -64,7 +64,9 @@ const PageAnnonce : React.FC =()=>{
                     </IonFabList>
                 </IonFab>
                 {loading ? ( // Render spinner if loading is true
-                        <IonSpinner />
+                         <div className="ion-text-center ion-margin-top">
+                         <IonSpinner />
+                     </div>
                     ) : (
                         data.map((annonce: any, index) => (
                             <Annonce

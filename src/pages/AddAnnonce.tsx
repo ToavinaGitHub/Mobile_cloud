@@ -6,6 +6,8 @@ import "../assets/annonce/addAnnonce.css"
 import config from "../Config";
 import { useEffect, useState } from "react";
 
+import axios from "axios";
+
 import { useHistory } from "react-router";
 const AddAnnonce : React.FC = () =>{
     const[marques, setMarques] = useState([]);
@@ -122,6 +124,7 @@ const AddAnnonce : React.FC = () =>{
         }
       };
       
+
       
 
 
@@ -163,6 +166,39 @@ const AddAnnonce : React.FC = () =>{
         }
       };
 
+      /************************** */
+      const handleImgBBUpload = async () => {
+
+       
+        if (files && files.length > 0) {
+          try {
+            const formData = new FormData();
+            formData.append("key", "2da112a3ac1802ff2d7f87d24f16f1ea"); 
+    
+            for (let i = 0; i < files.length; i++) {
+              formData.append("image", files[i]);
+            }
+            console.log(2);
+    
+            const response = await axios.post("https://api.imgbb.com/1/upload", formData);
+    
+            console.log(3);
+            if (response.data.success) {
+              const imageUrl = response.data.data.url;
+              console.log("Image uploaded successfully. URL:", imageUrl);
+            } else {
+              console.error("ImgBB upload failed:", response.data.error.message);
+            }
+          } catch (error) {
+            console.error("Error uploading to ImgBB:", error);
+          }
+        } else {
+          console.error("No files selected for upload.");
+        }
+      };
+
+      /************************************ */
+
       const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
@@ -201,7 +237,9 @@ const AddAnnonce : React.FC = () =>{
     
         const formData = new FormData();
         formData.append('a', new Blob([JSON.stringify(formDataObject)], { type: 'application/json' }));
+       
         
+        /*
         if (files && files.length > 0) {
             for (let i = 0; i < files.length; i++) {
                 formData.append('file', files[i]);
@@ -226,7 +264,65 @@ const AddAnnonce : React.FC = () =>{
           }
         } catch (error) {
           console.error('Error during file upload:', error);
+        }*/
+        const uploadedUrls = [];
+
+        if (files && files.length > 0) {
+          try {
+            const formData = new FormData();
+            formData.append("key", "2da112a3ac1802ff2d7f87d24f16f1ea");
+      
+           // Array to store uploaded URLs
+      
+            for (let i = 0; i < files.length; i++) {
+              formData.append("image", files[i]);
+      
+              // Upload each file separately
+              const response = await axios.post("https://api.imgbb.com/1/upload", formData);
+      
+              if (response.data.success) {
+                const imageUrl = response.data.data.url;
+                uploadedUrls.push(imageUrl); // Store the URL in the array
+                console.log("Image uploaded successfully. URL:", imageUrl);
+              } else {
+                console.error("ImgBB upload failed:", response.data.error.message);
+              }
+            }
+      
+            // Log all the uploaded URLs
+            console.log("All uploaded URLs:", uploadedUrls);
+          } catch (error) {
+            console.error("Error uploading to ImgBB:", error);
+          }
+        } else {
+          console.error("No files selected for upload.");
         }
+
+        formData.append('sary', new Blob([JSON.stringify(uploadedUrls)], { type: 'application/json' }));
+
+        try {
+          const response = await fetch(config.baseUrl + '/Annonce/saveImgbb', {
+          method: 'POST',
+          headers: {
+          
+          'Authorization': `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        });
+  
+        if (response.ok) {
+          history.push('/mesAnnonces');
+          window.location.reload();
+        } else {
+          console.error('Error uploading file');
+        }
+      } catch (error) {
+        console.error('Error during file upload:', error);
+      }
+
+
+        //console.log(1);
+       // handleImgBBUpload();
       };
 
     return(

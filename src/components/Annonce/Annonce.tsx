@@ -92,7 +92,7 @@ const Annonce: React.FC = (props: any) => {
             <IonAvatar>
               <img alt="bmw" src={bm}></img>
             </IonAvatar>
-            <IonLabel className="users">{props.utilisateur.prenomUtilisateur} {props.utilisateur.nomUtilisateur}</IonLabel>
+            <IonLabel className="users">{props.utilisateur.prenomUtilisateur} {props.utilisateur.nomUtilisateur} </IonLabel>
           </IonChip>
         </IonCardSubtitle>
       </IonCardHeader>
@@ -100,7 +100,7 @@ const Annonce: React.FC = (props: any) => {
         <IonRow>
           <IonCol size="12" >
               <img
-                src={`data:image/jpeg;base64, ${currentImage}`}
+                src={currentImage}
                 className="small-image"
             /></IonCol>
         </IonRow>
@@ -110,7 +110,7 @@ const Annonce: React.FC = (props: any) => {
               <img
                 key={index}
                 alt={`Other ${index}`}
-                src={`data:image/jpeg;base64, ${image.sary}`}
+                src={image.sary}
                 className="small-image"
                 onClick={() => handleImageClick(image.sary)}
               />

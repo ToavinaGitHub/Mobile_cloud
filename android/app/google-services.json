@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "519865156998",
-    "project_id": "projetcloud-e19af",
-    "storage_bucket": "projetcloud-e19af.appspot.com"
+    "project_number": "677710366644",
+    "project_id": "clouds5-3407d",
+    "storage_bucket": "clouds5-3407d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:519865156998:android:479265a5d557b029da9807",
+        "mobilesdk_app_id": "1:677710366644:android:4c8d15a1df1086fbdd14e1",
         "android_client_info": {
           "package_name": "io.ionic.starter"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC-9b3_CUb1LLhYgyixDEGuf1Ha2gV173Y"
+          "current_key": "AIzaSyD40rbhzs3xglKrR_kGPcpDjT3lKFiFSJw"
         }
       ],
       "services": {
