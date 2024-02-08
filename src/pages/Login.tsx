@@ -18,7 +18,7 @@ import '../assets/Auth/login.css';
 
 const Login: React.FC = () => {
  // const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('toavina@gmail.com');
   const [loading, setLoading] = useState(false);
 
   const passwordRef = useRef<any>(null)
@@ -87,6 +87,7 @@ const Login: React.FC = () => {
                 labelPlacement='floating'
                 fill='solid'
                 placeholder='Password'
+                value={"toavina"}
                 ref={passwordRef}
                 // value={password}
                 // onIonChange={(e) => setPassword(e.detail.value!)}

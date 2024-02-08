@@ -7,9 +7,13 @@ import config from "../Config";
 import { useEffect, useState } from "react";
 
 import axios from "axios";
+import { IonSpinner } from "@ionic/react";
 
 import { useHistory } from "react-router";
 const AddAnnonce : React.FC = () =>{
+
+    const [loading, setLoading] = useState(false);
+
     const[marques, setMarques] = useState([]);
     const [models, setModels] = useState([]);
     const [transmissions, setTransmissions] = useState([]);
@@ -200,6 +204,8 @@ const AddAnnonce : React.FC = () =>{
       /************************************ */
 
       const handleSubmit = async (event: React.FormEvent) => {
+
+        setLoading(true);
         event.preventDefault();
 
         const formDataObject = {
@@ -329,6 +335,13 @@ const AddAnnonce : React.FC = () =>{
         <>
         <IonPage>
             <Header />
+            {loading ? // Afficher le spinner si loading est vrai
+                    <div className="ion-text-center ion-margin-top">
+                        <IonSpinner />
+                    </div>
+                    : null // Ne rien afficher si loading est faux
+              }
+                    
             <IonContent className="custom-content">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <IonItem className="custom-item">

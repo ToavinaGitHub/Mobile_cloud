@@ -47,7 +47,6 @@ const Profile: React.FC = () => {
           
             response.json().then((dat)=>{
                 setData(dat);
-
             })
             console.log(response)
           } catch (error) {
@@ -143,6 +142,7 @@ const Profile: React.FC = () => {
                         localStorage.removeItem("token");
                         localStorage.removeItem("error");
                         history.push('/login');
+                        window.location.reload();
                     }
                     }
             ]}>
